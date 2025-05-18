@@ -53,15 +53,16 @@
  <script>
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/Quantum.loader.js";
-  var config = {
-    dataUrl: buildUrl + "/Quantum.data.br",
-    frameworkUrl: buildUrl + "/Quantum.framework.js.br",
-    codeUrl: buildUrl + "/Quantum.wasm.br",
+    var config = {
+    dataUrl: buildUrl + "/Quantum.data.unityweb",
+    frameworkUrl: buildUrl + "/Quantum.framework.js.unityweb",
+    codeUrl: buildUrl + "/Quantum.wasm.unityweb",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "Quantum",
     productVersion: "1.0"
   };
+
 
   var container = document.querySelector("#unity-container");
   var canvas = document.querySelector("#unity-canvas");
