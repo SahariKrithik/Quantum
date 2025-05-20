@@ -4,11 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
   <title>Quantum | WebGL</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
-
   <style>
     html, body {
       margin: 0;
@@ -31,15 +29,14 @@
     }
 
     canvas#unity-canvas {
-        height: 95vh;         /* Instead of 100vh */
-        width: auto;
-        max-height: 95vh;
-        aspect-ratio: 9 / 16;
-        background: #000;
-        box-shadow: 0 0 16px rgba(0,0,0,0.25);
-        margin: 2.5vh 0;      /* Center vertically with spacing */
-}
-
+      height: 95vh;
+      width: auto;
+      max-height: 95vh;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      box-shadow: 0 0 16px rgba(0,0,0,0.25);
+      margin: 2.5vh 0;
+    }
 
     #unity-loading-bar {
       position: absolute;
@@ -101,11 +98,12 @@
     }
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/Quantum.loader.js";
+    var loaderUrl = buildUrl + "/7a2dbded24d57e056180125b1583e7c4.loader.js"; // <-- Dynamic filename
+
     var config = {
-      dataUrl: buildUrl + "/Quantum.data.br",
-      frameworkUrl: buildUrl + "/Quantum.framework.js.br",
-      codeUrl: buildUrl + "/Quantum.wasm.br",
+      dataUrl: buildUrl + "/40f932aedcd8cd19a26f0396331477d1.data.br",
+      frameworkUrl: buildUrl + "/9a68b798162779761b7891fe71cc27aa.framework.js.br",
+      codeUrl: buildUrl + "/8ceff48ed6797c6e0dd7b7208895b7df.wasm.br",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Quantum",
