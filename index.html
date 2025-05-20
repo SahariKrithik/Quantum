@@ -69,22 +69,21 @@
   </div>
 
   <script>
+    // Force unregister old service workers on load
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (const reg of registrations) {
+          reg.unregister();
+        }
+      });
+    }
+
     const container = document.querySelector("#unity-container");
     const canvas = document.querySelector("#unity-canvas");
     const loadingBar = document.querySelector("#unity-loading-bar");
     const progressBarFull = document.querySelector("#unity-progress-bar-full");
     const fullscreenButton = document.querySelector("#unity-fullscreen-button");
     const warningBanner = document.querySelector("#unity-warning");
-
-    if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    for (let reg of registrations) {
-      reg.unregister();
-
-     }
-        });
-     }
-
 
     function unityShowBanner(msg, type) {
       function updateBannerVisibility() {
@@ -105,7 +104,7 @@
     }
 
     const buildUrl = "Build";
-    const loaderUrl = buildUrl + "/Quantum.loader.js"; // Let Unity inject the correct name
+    const loaderUrl = buildUrl + "/Quantum.loader.js";
 
     const config = {
       dataUrl: buildUrl + "/Quantum.data.br",
