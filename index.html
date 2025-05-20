@@ -95,7 +95,8 @@
     }
 
     const buildUrl = "Build";
-    const loaderUrl = buildUrl + "/Quantum.loader.js"; // Loader remains uncompressed!
+    const loaderUrl = buildUrl + "/Quantum.loader.js"; // Let Unity inject the correct name
+
     const config = {
       dataUrl: buildUrl + "/Quantum.data.br",
       frameworkUrl: buildUrl + "/Quantum.framework.js.br",
