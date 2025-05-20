@@ -48,6 +48,13 @@
       text-align: center;
       color: white;
     }
+
+    input#mobileInputOverlay {
+      position: absolute;
+      top: -100px;
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -68,8 +75,9 @@
     </div>
   </div>
 
+  <input id="mobileInputOverlay" type="number" inputmode="numeric" pattern="[0-9]*" oninput="sendToUnity(this.value)" />
+
   <script>
-    // Force unregister old service workers on load
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(registrations => {
         for (const reg of registrations) {
@@ -84,6 +92,8 @@
     const progressBarFull = document.querySelector("#unity-progress-bar-full");
     const fullscreenButton = document.querySelector("#unity-fullscreen-button");
     const warningBanner = document.querySelector("#unity-warning");
+
+    let unityInstance = null;
 
     function unityShowBanner(msg, type) {
       function updateBannerVisibility() {
@@ -101,6 +111,20 @@
         }, 5000);
       }
       updateBannerVisibility();
+    }
+
+    function showMobileKeyboard(currentValue) {
+      const input = document.getElementById("mobileInputOverlay");
+      input.value = currentValue || "";
+      input.style.top = "50%";
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+
+    function sendToUnity(value) {
+      if (unityInstance) {
+        unityInstance.SendMessage("GameManager", "ReceiveInputFromOverlay", value);
+      }
     }
 
     const buildUrl = "Build";
@@ -124,10 +148,11 @@
     script.onload = () => {
       createUnityInstance(canvas, config, (progress) => {
         progressBarFull.style.width = 100 * progress + "%";
-      }).then((unityInstance) => {
+      }).then((instance) => {
+        unityInstance = instance;
         loadingBar.style.display = "none";
         fullscreenButton.onclick = () => {
-          unityInstance.SetFullscreen(1);
+          instance.SetFullscreen(1);
         };
       }).catch((message) => {
         alert(message);
