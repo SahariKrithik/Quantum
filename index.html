@@ -52,15 +52,23 @@
     input#mobileInputOverlay {
       position: absolute;
       top: -100px;
-      opacity: 0;
-      pointer-events: none;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 1;
+      z-index: 9999;
+      font-size: 20px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      width: 200px;
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
   <div id="unity-container">
-    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <canvas id="unity-canvas"></canvas>
     <div id="unity-loading-bar">
       <div id="unity-logo"></div>
       <div id="unity-progress-bar-empty">
@@ -75,7 +83,14 @@
     </div>
   </div>
 
-  <input id="mobileInputOverlay" type="number" inputmode="numeric" pattern="[0-9]*" oninput="sendToUnity(this.value)" />
+  <!-- HTML overlay input used for mobile -->
+  <input id="mobileInputOverlay"
+         type="number"
+         inputmode="numeric"
+         pattern="[0-9]*"
+         placeholder="Enter number..."
+         oninput="sendToUnity(this.value)"
+         onblur="hideMobileKeyboard()" />
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -113,12 +128,17 @@
       updateBannerVisibility();
     }
 
-    function showMobileKeyboard(currentValue) {
+    function showMobileKeyboard(currentValue = "") {
       const input = document.getElementById("mobileInputOverlay");
-      input.value = currentValue || "";
+      input.value = currentValue;
       input.style.top = "50%";
       input.focus();
       input.setSelectionRange(input.value.length, input.value.length);
+    }
+
+    function hideMobileKeyboard() {
+      const input = document.getElementById("mobileInputOverlay");
+      input.style.top = "-100px";
     }
 
     function sendToUnity(value) {
